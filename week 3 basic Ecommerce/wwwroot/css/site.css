@@ -12,7 +12,25 @@ html {
   position: relative;
   min-height: 100%;
 }
+#table-color{
+    color:white;
+}
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-image: url(/img/background.jpg);
+    background-size: 100%;
+}
+
+#myCarousel {
+    margin-top:5em;
+    padding: 1em;
+    border: 4px #fcba03;
+    border-style:solid;
+    border-radius: 20px;
+    background-color: rgb(0, 0, 0, .8);
+}
+h1, h2, p {
+    color:white;
+    text-align: center;
 }

@@ -2,7 +2,7 @@
 
 David's games is a website where you can buy the hottest games ever made.
 
-![This website is great!](Home Page.jpg)
+![This website is great!](/Home\ Page.jpg)
 
 ## Bootstrap used
 - navigation bar brand icon

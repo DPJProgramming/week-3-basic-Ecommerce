@@ -1,6 +1,6 @@
 # David's Games
 
-David's games is an ecommerce platform made with Visual Studio and ASP.Net MVC for the hottest games ever made. 
+David's games is an ecommerce platform made with Visual Studio, ASP.Net MVC, and EF Core for the hottest games ever made. 
 It features a list of the most popular gamss as well as the top selling games. More to come!
 
 <p align="center">
@@ -26,5 +26,6 @@ It features a list of the most popular gamss as well as the top selling games. M
 
 ### Helpful Resources
   - [ASP .Net MVC](https://learn.microsoft.com/en-us/aspnet/mvc/)
-  - [Bootstrap](https://getbootstrap.com/)
+  - [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete)
   - [Visual Studio](https://visualstudio.microsoft.com/)
+  - [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/)

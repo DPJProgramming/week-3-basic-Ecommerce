@@ -13,6 +13,14 @@ namespace week_3_basic_Ecommerce.Controllers {
             _context = context;
         }
 
+        public async  Task<IActionResult> Index() {
+
+            //Get all games from database
+            List<Game> allGames = _context.Games.ToList();
+
+            //show on website
+            return View(allGames);
+        }
         [HttpGet]
         public IActionResult Create() {
             return View();

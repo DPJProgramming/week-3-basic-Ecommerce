@@ -48,7 +48,7 @@ namespace week_3_basic_Ecommerce.Controllers {
         public async Task<IActionResult> Edit(int id) {
             Game gameToEdit = await _context.Games.FindAsync(id); //find game by id
 
-            //if game is not found in database not foound exception
+            //if game is not found in database not found exception
             if (gameToEdit == null) {
                 return NotFound();
             }
@@ -72,6 +72,34 @@ namespace week_3_basic_Ecommerce.Controllers {
 
                 return View(gameModel);
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id) {
+            Game gameToDelete = await _context.Games.FindAsync(id);
+
+            if(gameToDelete == null) {
+                return NotFound();
+            }
+            else {
+                return View(gameToDelete);
+            }
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id) {
+            Game gameToDelete = await _context.Games.FindAsync(id);
+
+            if (gameToDelete != null) {
+                _context.Games.Remove(gameToDelete);
+                await _context.SaveChangesAsync();
+                TempData["Message"] = gameToDelete.Title + " was deleted successfully";
+                return RedirectToAction("Index");
+            }
+
+            TempData["Message"] = gameToDelete.Title + "Was already deleted";
+            return RedirectToAction("Index");
+            
         }
     }
 }

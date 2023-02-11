@@ -42,5 +42,18 @@ namespace week_3_basic_Ecommerce.Controllers {
 
             return View(game);
         }
+
+        //pass id which was clicked from view asp-route-id
+        public async Task<IActionResult> Edit(int id) {
+            Game gameToEdit = await _context.Games.FindAsync(id); //find game by id
+
+            //if game is not found in database not foound exception
+            if(gameToEdit == null) {
+                return NotFound();
+            }
+
+            //send game to view
+            return View(gameToEdit);
+        }
     }
 }

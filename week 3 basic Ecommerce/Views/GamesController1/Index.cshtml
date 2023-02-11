@@ -13,9 +13,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.GameId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
@@ -37,9 +34,14 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <!-- asp action link to edit page to edit each thing @item.GameId gets each one by id so it knows which one is clicked -->
+
+                <a class="btn btn-primary" asp-action="Edit" asp-route-id ="@item.GameId">Edit</a>
+
+                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.GameId">Details</a>               
+
+                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.GameId">Delete</a>
+
             </td>
         </tr>
 }

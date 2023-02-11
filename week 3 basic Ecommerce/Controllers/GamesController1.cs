@@ -13,7 +13,7 @@ namespace week_3_basic_Ecommerce.Controllers {
             _context = context;
         }
 
-        public async  Task<IActionResult> Index() {
+        public async Task<IActionResult> Index() {
 
             //Get all games from database
             List<Game> allGames = _context.Games.ToList();
@@ -41,6 +41,37 @@ namespace week_3_basic_Ecommerce.Controllers {
             }
 
             return View(game);
+        }
+
+        //pass id which was clicked from view asp-route-id
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id) {
+            Game gameToEdit = await _context.Games.FindAsync(id); //find game by id
+
+            //if game is not found in database not foound exception
+            if (gameToEdit == null) {
+                return NotFound();
+            }
+
+            //send game to view
+            return View(gameToEdit);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Game gameModel) {
+            //validate info
+            if (ModelState.IsValid) {
+                _context.Games.Update(gameModel);
+                await _context.SaveChangesAsync();
+
+                TempData["Message"] = $"{gameModel.Title} was updated successfully";
+                //redirects to index page
+                return RedirectToAction("Index");
+            }
+            else {
+
+                return View(gameModel);
+            }
         }
     }
 }

@@ -101,5 +101,17 @@ namespace week_3_basic_Ecommerce.Controllers {
             return RedirectToAction("Index");
             
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id) {
+            Game gameDetails = await _context.Games.FindAsync(id);
+
+            if (gameDetails == null) {
+                return NotFound();
+            }
+            else {
+                return View(gameDetails);
+            }
+        }
     }
 }

@@ -7,8 +7,9 @@
 <!--gets message from GamesController post method
     and creates an h1 for the message-->
 @if (ViewData["Message"] != null) {
-    <div class="alert alert-success">
-        <h1>@ViewData["Message"]</h1>
+    <div class="alert alert-success alert-dismissible" role="alert">
+        @ViewData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
 

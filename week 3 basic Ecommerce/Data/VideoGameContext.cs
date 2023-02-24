@@ -16,5 +16,7 @@ namespace week_3_basic_Ecommerce.Data {
         }
 
         public DbSet<Game> Games { get; set; }
+
+        public DbSet<Member> Members { get; set; }
     }
 }

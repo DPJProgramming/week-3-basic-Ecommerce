@@ -13,9 +13,9 @@ namespace week_3_basic_Ecommerce.Models {
 
         public string Password { get; set; }
 
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
 
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
     }
 
     public class RegisterViewModel {

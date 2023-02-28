@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using week_3_basic_Ecommerce.Data;
 using week_3_basic_Ecommerce.Models;
 
@@ -28,10 +29,50 @@ namespace week_3_basic_Ecommerce.Controllers {
                 _context.Members.Add(newMember);
                 await _context.SaveChangesAsync();
 
+                //log new user in using method
+                LogUserIn(newMember.Email);
+
                 //redirect to home page
                 return RedirectToAction("Index", "Home");
             }
             return View(regModel);
+        }
+
+        [HttpGet]
+        public IActionResult Login() {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginViewModel loginModel) {
+            if (ModelState.IsValid) {
+                Member? m = (from member in _context.Members
+                           where member.Email == loginModel.Email
+                           && member.Password == loginModel.Password
+                           select member).SingleOrDefault(); //default value if sequence is empty
+
+                if(m != null) {
+                    //set session to logged in users email
+                    LogUserIn(loginModel.Email);
+
+                    return RedirectToAction("Index", "Home");
+                }
+
+                ModelState.AddModelError(string.Empty, "Credentials not found");
+
+            }
+            return View(loginModel);
+        }
+
+        //method used to log user in
+        private void LogUserIn(string email) {
+            HttpContext.Session.SetString("Email", email);
+        }
+
+        [HttpGet]
+        public IActionResult Logout() {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

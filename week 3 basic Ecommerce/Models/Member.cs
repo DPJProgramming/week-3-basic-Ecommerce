@@ -44,6 +44,7 @@ namespace week_3_basic_Ecommerce.Models {
     public class LoginViewModel {
 
         [Required]
+        [EmailAddress]
         public string Email { get; set; } = null!; 
 
         [Required]

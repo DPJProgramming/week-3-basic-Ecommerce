@@ -29,7 +29,7 @@ namespace week_3_basic_Ecommerce.Controllers {
                 _context.Members.Add(newMember);
                 await _context.SaveChangesAsync();
 
-                //log new user in
+                //log new user in using method
                 LogUserIn(newMember.Email);
 
                 //redirect to home page
@@ -64,6 +64,7 @@ namespace week_3_basic_Ecommerce.Controllers {
             return View(loginModel);
         }
 
+        //method used to log user in
         private void LogUserIn(string email) {
             HttpContext.Session.SetString("Email", email);
         }

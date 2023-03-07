@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using week_3_basic_Ecommerce.Data;
 using week_3_basic_Ecommerce.Models;
 
@@ -13,13 +14,38 @@ namespace week_3_basic_Ecommerce.Controllers {
             _context = context;
         }
 
-        public async Task<IActionResult> Index() {
+        public async Task<IActionResult> Index(int? id) {
+
+            const int NumGamesToDisplayPerPage = 3;
+
+            //get total number of games from database math.ceiling rounds up to nearest whole number
+            int totalNumberOfProducts = await _context.Games.CountAsync();
+            double maxNumPages = Math.Ceiling((double)totalNumberOfProducts/NumGamesToDisplayPerPage);
+            int lastPage = Convert.ToInt32(maxNumPages);
+
+            //need page offset to use currentpage and find numgames to skip
+            int pageOffset = 1;
+
+            //check if id has a value before setting that value to currentPage
+            //                check id       if true  if false
+            int currentPage = id.HasValue ? id.Value  : 1;
+            //or
+            //int currentPage = id ?? 1;
 
             //Get all games from database
-            List<Game> allGames = _context.Games.ToList();
+            //method syntax before pagination
+            //List<Game> allGames = _context.Games.ToList();
+
+            //query syntax
+            List<Game> allGames = await(from game in _context.Games select game)
+                                     .Skip(NumGamesToDisplayPerPage * (currentPage - pageOffset))
+                                     .Take(NumGamesToDisplayPerPage)
+                                     .ToListAsync();
+
+            GameCatalogViewModel catalogModel = new(allGames, lastPage, currentPage);
 
             //show on website
-            return View(allGames);
+            return View(catalogModel);
         }
         [HttpGet]
         public IActionResult Create() {

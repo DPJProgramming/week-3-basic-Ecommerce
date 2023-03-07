@@ -18,6 +18,11 @@ namespace week_3_basic_Ecommerce.Controllers {
 
             const int NumGamesToDisplayPerPage = 3;
 
+            //get total number of games from database math.ceiling rounds up to nearest whole number
+            int totalNumberOfProducts = await _context.Games.CountAsync();
+            double maxNumPages = Math.Ceiling((double)totalNumberOfProducts/NumGamesToDisplayPerPage);
+            int lastPage = Convert.ToInt32(maxNumPages);
+
             //need page offset to use currentpage and find numgames to skip
             int pageOffset = 1;
 
@@ -37,8 +42,10 @@ namespace week_3_basic_Ecommerce.Controllers {
                                      .Take(NumGamesToDisplayPerPage)
                                      .ToListAsync();
 
+            GameCatalogViewModel catalogModel = new(allGames, lastPage, currentPage);
+
             //show on website
-            return View(allGames);
+            return View(catalogModel);
         }
         [HttpGet]
         public IActionResult Create() {

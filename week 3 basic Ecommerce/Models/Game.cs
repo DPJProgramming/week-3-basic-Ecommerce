@@ -22,3 +22,13 @@ namespace week_3_basic_Ecommerce.Models {
         public double Price { get; set; }
     }
 }
+
+/// <summary>
+/// a video game that has been added to shopping cart cookie
+/// </summary>
+public class CartGameViewModel {
+    [Key]
+    public int GameId { get; set; }
+    public string? GameTitle { get; set; }
+    public double GamePrice { get; set; }
+}

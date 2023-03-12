@@ -2,15 +2,16 @@
 using Microsoft.EntityFrameworkCore;
 using week_3_basic_Ecommerce.Data;
 using week_3_basic_Ecommerce.Models;
+using System.Data;
 
 namespace week_3_basic_Ecommerce.Controllers {
-    public class GamesController1 : Controller {
+    public class Games : Controller {
 
         //field for controller class to work with database
         private readonly VideoGameContext _context;
 
         //constructor
-        public GamesController1(VideoGameContext context) {
+        public Games(VideoGameContext context) {
             _context = context;
         }
 

@@ -3,6 +3,7 @@ using week_3_basic_Ecommerce.Data;
 using week_3_basic_Ecommerce.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Data;
 
 namespace week_3_basic_Ecommerce.Controllers {
     public class AddToCartController : Controller {
@@ -26,7 +27,7 @@ namespace week_3_basic_Ecommerce.Controllers {
 
                 //Game with specified id doesn't exist
                 TempData["Message"] = "Game does not exist";
-                return RedirectToAction("Index", "GamesController1");
+                return RedirectToAction("Index", "Games");
             }
 
             //make CartGameViewModel based on gameInCart to add to cookie
@@ -42,7 +43,7 @@ namespace week_3_basic_Ecommerce.Controllers {
             WriteShoppingCartCookie(cartGames);
 
             TempData["Message"] = "Game added to cart!";
-            return RedirectToAction("Index", "GamesController1");
+            return RedirectToAction("Index", "Games");
         }
 
         private void WriteShoppingCartCookie(List<CartGameViewModel> cartGames) {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using week_3_basic_Ecommerce.Models;
+using System.Data;
 
 namespace week_3_basic_Ecommerce.Controllers {
     public class HomeController : Controller {

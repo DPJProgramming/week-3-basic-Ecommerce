@@ -73,7 +73,7 @@ namespace week_3_basic_Ecommerce.Controllers {
         //pass id which was clicked from view asp-route-id
         [HttpGet]
         public async Task<IActionResult> Edit(int id) {
-            Game gameToEdit = await _context.Games.FindAsync(id); //find game by id
+            Game? gameToEdit = await _context.Games.FindAsync(id); //find game by id
 
             //if game is not found in database not found exception
             if (gameToEdit == null) {
@@ -103,7 +103,7 @@ namespace week_3_basic_Ecommerce.Controllers {
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id) {
-            Game gameToDelete = await _context.Games.FindAsync(id);
+            Game? gameToDelete = await _context.Games.FindAsync(id);
 
             if(gameToDelete == null) {
                 return NotFound();
@@ -115,7 +115,7 @@ namespace week_3_basic_Ecommerce.Controllers {
 
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id) {
-            Game gameToDelete = await _context.Games.FindAsync(id);
+            Game? gameToDelete = await _context.Games.FindAsync(id);
 
             if (gameToDelete != null) {
                 _context.Games.Remove(gameToDelete);
@@ -123,15 +123,15 @@ namespace week_3_basic_Ecommerce.Controllers {
                 TempData["Message"] = gameToDelete.Title + " was deleted successfully";
                 return RedirectToAction("Index");
             }
-
-            TempData["Message"] = gameToDelete.Title + "Was already deleted";
-            return RedirectToAction("Index");
-            
+            else {
+                TempData["Message"] = gameToDelete?.Title + "Was already deleted";
+                return RedirectToAction("Index");
+            }           
         }
 
         [HttpGet]
         public async Task<IActionResult> Details(int id) {
-            Game gameDetails = await _context.Games.FindAsync(id);
+            Game? gameDetails = await _context.Games.FindAsync(id);
 
             if (gameDetails == null) {
                 return NotFound();

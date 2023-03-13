@@ -19,13 +19,15 @@ namespace week_3_basic_Ecommerce.Controllers {
             _context = context;
         }
 
+
         public IActionResult AddToCart(int id) {
 
+            //create a game from id
             Game? gameToAdd = _context.Games.Where(g => g.GameId == id).FirstOrDefault();
 
+            //Game with specified id doesn't exist
             if (gameToAdd == null) {
 
-                //Game with specified id doesn't exist
                 TempData["Message"] = "Game does not exist";
                 return RedirectToAction("Index", "Games");
             }
@@ -67,6 +69,7 @@ namespace week_3_basic_Ecommerce.Controllers {
                 return new List<CartGameViewModel>();
             }
 
+            //returns Json string as deserialized list of game objects
             return JsonConvert.DeserializeObject<List<CartGameViewModel>>(cookie)!;       
         }
 

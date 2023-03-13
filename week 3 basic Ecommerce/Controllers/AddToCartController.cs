@@ -60,12 +60,13 @@ namespace week_3_basic_Ecommerce.Controllers {
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         private List<CartGameViewModel> GetExistingCartData() {
-            string cookie = HttpContext.Request.Cookies[Cart];
+            string? cookie = HttpContext.Request.Cookies[Cart];
 
             if (string.IsNullOrWhiteSpace(cookie)) {
                 return new List<CartGameViewModel>();
             }
-            return JsonConvert.DeserializeObject<List<CartGameViewModel>>(cookie);
+
+            return JsonConvert.DeserializeObject<List<CartGameViewModel>>(cookie)!;       
         }
 
         public IActionResult Summary() {
@@ -77,9 +78,11 @@ namespace week_3_basic_Ecommerce.Controllers {
         public IActionResult Remove(int id) {
             List<CartGameViewModel> cartGames = GetExistingCartData();
 
-            CartGameViewModel targetGame = cartGames.Where(g => g.GameId == id).FirstOrDefault();
+            CartGameViewModel? targetGame = cartGames.Where(g => g.GameId == id).FirstOrDefault();
 
-            cartGames.Remove(targetGame);
+            if (targetGame != null) {
+                cartGames.Remove(targetGame);
+            }
 
             WriteShoppingCartCookie(cartGames);
 

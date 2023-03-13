@@ -47,7 +47,7 @@
 
                         <!-- checks if someone is logged in -->
                         @{
-                            string? userEmail = _httpContext.HttpContext.Session.GetString("Email");
+                            string? userEmail = _httpContext.HttpContext?.Session.GetString("Email");
                         }
 
                         @if(userEmail == null){
